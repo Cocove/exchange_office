@@ -2,20 +2,20 @@ package Exchange_MAIN;
 
 import Administrator.administrator;
 import Deposit.db_USER_deposit_Frame;
-import Histroy.Limit_get_Money;
 import Histroy.PrinrFrame;
 import Rate.Rate_Frame;
+
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 public class MainFrame extends JFrame implements ActionListener {
 
 
     public static String acc;
+
 
     public static String getAcc() {
         return acc;
@@ -42,6 +42,7 @@ public class MainFrame extends JFrame implements ActionListener {
     private JButton b3;
     private JButton b4;
     private JButton b5;
+    private JButton b6;
     private PrinrFrame PF;
     private JLabel Window_Title_Lable;
     private JPanel Window_Title_Panel;
@@ -53,6 +54,7 @@ public class MainFrame extends JFrame implements ActionListener {
     private JPanel jPanel6;
     private JPanel jPanel7;
     private JPanel jPanel8;
+    private JPanel jPanel9;
     private JLabel jLabel3;
     private ImageIcon image;
 
@@ -77,7 +79,7 @@ public class MainFrame extends JFrame implements ActionListener {
         Window_Title_Panel.setPreferredSize(preferredSize1);
         Window_Title_Panel.setLayout(new BorderLayout());
 
-        Window_Title_Lable = new JLabel("Обменник");
+        Window_Title_Lable = new JLabel("exchange office");
         Font f = new Font("Times New Roman", Font.PLAIN, 40);
         Window_Title_Lable.setFont(f);
         Window_Title_Lable.setHorizontalAlignment(SwingConstants.CENTER);
@@ -102,18 +104,24 @@ public class MainFrame extends JFrame implements ActionListener {
         jPanel8 = new JPanel();
         jPanel8.setLayout(new FlowLayout(FlowLayout.CENTER));
         jPanel8.setBackground(Color.white);
-        b1 = new JButton("Печать справки");
+        jPanel9 = new JPanel();
+        jPanel9.setLayout(new FlowLayout(FlowLayout.CENTER));
+        jPanel9.setBackground(Color.white);
+        b1 = new JButton("transaction interface");
         b1.setFocusPainted(false);
-        b2 = new JButton("Конвертация");
-        b3 = new JButton("Авуары");
-        b4 = new JButton("Administrator");
+        b2 = new JButton("rate interface");
+        b3 = new JButton("asset interface");
+        b4 = new JButton("administrator");
         b5 = new JButton("exit");
+        b6 = new JButton("exchange_user");
+
 
         b1.setPreferredSize(preferredSize);
         b2.setPreferredSize(preferredSize);
         b3.setPreferredSize(preferredSize);
         b4.setPreferredSize(preferredSize);
         b5.setPreferredSize(preferredSize);
+        b6.setPreferredSize(preferredSize);
         jPanel4.add(b1);
 
         jPanel5.add(b2);
@@ -123,11 +131,14 @@ public class MainFrame extends JFrame implements ActionListener {
         jPanel7.add(b4);
 
         jPanel8.add(b5);
+
+        jPanel9.add(b6);
         Window_Button_Panel.add(jPanel4);
         Window_Button_Panel.add(jPanel5);
         Window_Button_Panel.add(jPanel6);
         Window_Button_Panel.add(jPanel7);
         Window_Button_Panel.add(jPanel8);
+        Window_Button_Panel.add(jPanel9);
 
         jPanel3 = new JPanel();
         jPanel3.setBackground(Color.white);
@@ -140,6 +151,10 @@ public class MainFrame extends JFrame implements ActionListener {
 
         if (!getPrivilege().equals("administrator")) {
             jPanel7.setVisible(false);
+
+        }
+        if(getPrivilege().equals("costomer")){
+            jPanel9.setVisible(false);
         }
 
 
@@ -151,6 +166,7 @@ public class MainFrame extends JFrame implements ActionListener {
         b3.addActionListener(this);
         b4.addActionListener(this);
         b5.addActionListener(this);
+        b6.addActionListener(this);
 
         System.out.println(this.acc);
 
@@ -162,16 +178,8 @@ public class MainFrame extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == b1) {
-
             this.setVisible(false);
-            try {
-                Deter_user_permiss();
-            } catch (ClassNotFoundException classNotFoundException) {
-                classNotFoundException.printStackTrace();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-
+            new PrinrFrame();
         }
         if (e.getSource() == b2) {
             this.setVisible(false);
@@ -185,19 +193,14 @@ public class MainFrame extends JFrame implements ActionListener {
             this.setVisible(false);
             new administrator();
             //Limit_get_Money.LimitMoney();
-        } if (e.getSource() == b5) {
+        }
+        if (e.getSource() == b5) {
             this.setVisible(false);
             new LoginFrame();
 
         }
-    }
-
-    private void Deter_user_permiss() throws ClassNotFoundException, SQLException {
-        if (!Privilege.equals("costomer")) {
-            new set_up_account();
-        } else {
-            PrinrFrame.setAcc1(this.acc);
-            new PrinrFrame();
+        if (e.getSource() == b6) {
+            new set_up_account().getFarFrame(this);
         }
     }
 }

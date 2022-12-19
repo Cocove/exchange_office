@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
-public class Change_User_Frame extends JFrame implements ActionListener {
+public class Change_User_Permissions_Frame extends JFrame implements ActionListener {
 
 
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -36,10 +36,11 @@ public class Change_User_Frame extends JFrame implements ActionListener {
     private JLabel jLabel;
 
 
-    Change_User_Frame() {
-        this.setTitle("exchange office");
+    Change_User_Permissions_Frame() {
+        this.setTitle("change personal permissions");
         this.setSize(my_width, my_height);
         this.setLocationRelativeTo(null);
+        this.setBackground(Color.white);
 
         image = new ImageIcon("src/exchange/icon.png");
         this.setIconImage(image.getImage());
@@ -140,7 +141,7 @@ public class Change_User_Frame extends JFrame implements ActionListener {
                 se.printStackTrace();
             }
         }
-        System.out.println("数据删除成功");
+        System.out.println("数据改变成功");
 
     }
     public void getFarFrame(user_frame userFrame) {

@@ -30,8 +30,19 @@ public class db_USER_deposit_Frame extends JFrame implements ActionListener {
     static final String PASS = "1230zxc..";
 
 
+
+    private static String acc = null;
+
+    public static String getAcc() {
+        return acc;
+    }
+
+    public static void setAcc(String acc) {
+        db_USER_deposit_Frame.acc = acc;
+    }
+
     public db_USER_deposit_Frame(){
-        this.setTitle("find histroy");
+        this.setTitle("User Deposit Interface");
         this.setSize(my_width,my_height);
         this.setLocationRelativeTo(null);
 
@@ -45,6 +56,7 @@ public class db_USER_deposit_Frame extends JFrame implements ActionListener {
         // 将各按钮组件依次添加到面板中
 
 
+
         // 新建表格
         tableModel = new DefaultTableModel(rowData,columnNames);
         table = new JTable(tableModel);
@@ -53,6 +65,11 @@ public class db_USER_deposit_Frame extends JFrame implements ActionListener {
 
         back = new JButton("back");
         set_LIMIT = new JButton("set limit");
+
+        if (!MainFrame.getPrivilege().equals("administrator")) {
+            set_LIMIT.setVisible(false);
+
+        }
 
         panelDown = new JPanel();		// 新建按钮组件面板
         panelDown.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -81,13 +98,14 @@ public class db_USER_deposit_Frame extends JFrame implements ActionListener {
         Connection conn;
         PreparedStatement preparedStatement = null;
 
+
         Vector rows = null;
         try {
             Class.forName(JDBC_DRIVER);	//连接驱动
             conn = DriverManager.getConnection(DB_URL,USER,PASS);	//连接数据库
 //			if(!conn.isClosed())
 //				System.out.println("成功连接数据库");
-            preparedStatement = conn.prepareStatement("select * from exchange_office_user");
+            preparedStatement = conn.prepareStatement("select * from exchange_office_user where user_acc = '"+acc+"' ");
             ResultSet result1 = preparedStatement.executeQuery();
 
             rows = new Vector();

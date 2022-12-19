@@ -55,7 +55,7 @@ public class administrator extends JFrame implements ActionListener {
     public administrator() {
 
 
-        this.setTitle("exchange office");
+        this.setTitle("administrator interface");
         this.setSize(my_width, my_height);
         this.setLocationRelativeTo(null);
 
@@ -77,7 +77,7 @@ public class administrator extends JFrame implements ActionListener {
         Window_Title_Panel.setPreferredSize(preferredSize1);
         Window_Title_Panel.setLayout(new BorderLayout());
 
-        Window_Title_Lable = new JLabel("Обменник");
+        Window_Title_Lable = new JLabel("administrator interface");
         Font f = new Font("Times New Roman", Font.PLAIN, 40);
         Window_Title_Lable.setFont(f);
         Window_Title_Lable.setHorizontalAlignment(SwingConstants.CENTER);

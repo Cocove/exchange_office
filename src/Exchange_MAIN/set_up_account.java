@@ -1,5 +1,7 @@
 package Exchange_MAIN;
 
+import Administrator.user_frame;
+import Deposit.db_USER_deposit_Frame;
 import Histroy.PrinrFrame;
 
 import javax.swing.*;
@@ -14,6 +16,7 @@ public class set_up_account extends JFrame implements ActionListener {
     static final String DB_URL = "jdbc:mysql://localhost:3306/codes?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
 
 
+    MainFrame userFrame;
     // 数据库的用户名与密码，需要根据自己的设置
     static final String USER = "root";
     static final String PASS = "1230zxc..";
@@ -30,7 +33,7 @@ public class set_up_account extends JFrame implements ActionListener {
     String name = null;
 
     set_up_account() {
-        this.setTitle("exchange office");
+        this.setTitle("Enter the account to be operated");
         this.setSize(my_width, my_height);
         this.setLocationRelativeTo(null);
 
@@ -65,9 +68,17 @@ public class set_up_account extends JFrame implements ActionListener {
             if (getJTF1().length() == 0) {
                 JOptionPane.showMessageDialog(null, "请输入需要操作的账号", "标题", JOptionPane.WARNING_MESSAGE);
             } else if(existacc()){
-                setacc();
-                this.setVisible(false);
-                new PrinrFrame();
+                if(userFrame == null){
+                    setacc();
+                    this.setVisible(false);
+                    new MainFrame();
+                }else{
+                    userFrame.setVisible(false);
+                    setacc();
+                    this.setVisible(false);
+                    new MainFrame();
+                }
+
             }else {
                 JOptionPane.showMessageDialog(null, "请输入正确的账号", "标题", JOptionPane.WARNING_MESSAGE);
             }
@@ -82,6 +93,7 @@ public class set_up_account extends JFrame implements ActionListener {
 
     private void setacc() {
         PrinrFrame.setAcc1(getJTF1());
+        db_USER_deposit_Frame.setAcc(this.getJTF1());
     }
 
     private boolean existacc() {
@@ -117,7 +129,10 @@ public class set_up_account extends JFrame implements ActionListener {
         } else {
             return true;
         }
-
+    }
+    public void getFarFrame(MainFrame userFrame){
+        this.userFrame = userFrame;
+        System.out.println("父窗口");
     }
 }
     

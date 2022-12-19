@@ -33,7 +33,7 @@ public class Delect_User_Frame extends JFrame implements ActionListener {
 
 
     Delect_User_Frame() {
-        this.setTitle("exchange office");
+        this.setTitle("delete user interface");
         this.setSize(my_width, my_height);
         this.setLocationRelativeTo(null);
 

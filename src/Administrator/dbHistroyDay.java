@@ -29,7 +29,7 @@ public class dbHistroyDay extends JFrame implements ActionListener {
 
 
     public dbHistroyDay() {
-        this.setTitle("find histroy");
+        this.setTitle("daily history");
         this.setSize(my_width, my_height);
         this.setLocationRelativeTo(null);
 

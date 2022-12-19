@@ -1,5 +1,6 @@
 package Exchange_MAIN;
 
+import Deposit.db_USER_deposit_Frame;
 import Histroy.PrinrFrame;
 
 import javax.swing.*;
@@ -37,7 +38,7 @@ public class LoginFrame extends JFrame implements ActionListener{
     private JPanel Window_Title_Panel;
     LoginFrame(){
 
-        this.setTitle("exchange office");
+        this.setTitle("login interface");
         this.setSize(my_width,my_height);
         this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout());
@@ -50,7 +51,7 @@ public class LoginFrame extends JFrame implements ActionListener{
         Window_Title_Panel.setPreferredSize(preferredSize1);
         Window_Title_Panel.setLayout(new BorderLayout());
         Window_Title_Lable = new JLabel();
-        Window_Title_Lable = new JLabel("Обменник");
+        Window_Title_Lable = new JLabel("login interface");
         Font f = new Font("Times New Roman",Font.PLAIN,40);
         Window_Title_Lable.setFont(f);
         Window_Title_Lable.setHorizontalAlignment(SwingConstants.CENTER);
@@ -216,7 +217,7 @@ public class LoginFrame extends JFrame implements ActionListener{
                         MainFrame.setAcc(getJTF1());
                         MainFrame.setPrivilege(Privilege(getJTF1()));
 
-                        new MainFrame();
+                        Deter_user_permiss();
                     }else{
                         System.out.println("密码错误");
                         JOptionPane.showMessageDialog(null, "密码错误", "警告",JOptionPane.WARNING_MESSAGE);
@@ -234,5 +235,14 @@ public class LoginFrame extends JFrame implements ActionListener{
         }
     }
 
+    private void Deter_user_permiss() throws ClassNotFoundException, SQLException {
+        if (!Privilege(getJTF1()).equals("costomer")) {
+            new set_up_account();
+        } else {
+            PrinrFrame.setAcc1(this.getJTF1());
+            db_USER_deposit_Frame.setAcc(this.getJTF1());
+            new MainFrame();
+        }
+    }
 
 }

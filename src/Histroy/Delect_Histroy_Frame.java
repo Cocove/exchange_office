@@ -36,7 +36,7 @@ public class Delect_Histroy_Frame extends JFrame implements ActionListener {
 
 
     Delect_Histroy_Frame() {
-        this.setTitle("exchange office");
+        this.setTitle("Delete history interface");
         this.setSize(my_width, my_height);
         this.setLocationRelativeTo(null);
 

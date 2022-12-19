@@ -41,7 +41,7 @@ public class Register_Frame extends JFrame implements ActionListener {
     String name = null;
 
     Register_Frame() {
-        this.setTitle("exchange office");
+        this.setTitle("Registration interface");
         this.setSize(my_width, my_height);
         this.setLocationRelativeTo(null);
 

@@ -31,7 +31,7 @@ public class user_frame extends JFrame implements ActionListener {
 
 
     public user_frame(){
-        this.setTitle("find histroy");
+        this.setTitle("User Account Interface");
         this.setSize(my_width,my_height);
         this.setLocationRelativeTo(null);
 
@@ -170,7 +170,7 @@ public class user_frame extends JFrame implements ActionListener {
             new Delect_User_Frame().getFarFrame(this);
             //this.setVisible(false);
         }else if(e.getSource() == change){
-            new Change_User_Frame().getFarFrame(this);
+            new Change_User_Permissions_Frame().getFarFrame(this);
         }
     }
 

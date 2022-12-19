@@ -76,7 +76,7 @@ public class Rate_Frame extends JFrame implements ActionListener {
 
     public Rate_Frame(){
 
-        this.setTitle("exchange office");
+        this.setTitle("Query exchange rate interface");
         this.setSize(my_width, my_height);
         this.setLocationRelativeTo(null);
         image = new ImageIcon("src/exchange/icon.png");
@@ -92,7 +92,7 @@ public class Rate_Frame extends JFrame implements ActionListener {
         Window_Title_Panel.setPreferredSize(preferredSize);
         Window_Title_Panel.setLayout(new BorderLayout());
 
-        Window_Title_Lable = new JLabel("Проверить обменный курс");
+        Window_Title_Lable = new JLabel("Check the exchange rate");
         Font f = new Font("Times New Roman",Font.PLAIN,40);
         Font f1 = new Font("Times New Roman",Font.PLAIN,14);
         Window_Title_Lable.setFont(f);
@@ -134,13 +134,13 @@ public class Rate_Frame extends JFrame implements ActionListener {
             }
         });
 
-        label1 = new JLabel("Введите сумму, которую хотите обменять:");
+        label1 = new JLabel("Enter the amount you want to exchange:");
         label1.setFont(f1);
         label1.setHorizontalAlignment(SwingConstants.RIGHT);
         JTF1 = new JTextField(10);
         JTF1.setText("0");
 
-        label2 = new JLabel("Сумма, которую вы обменяли:");
+        label2 = new JLabel("Amount you exchanged:");
         label2.setFont(f1);
         label2.setHorizontalAlignment(SwingConstants.RIGHT);
         JTF2 = new JTextField(10);
@@ -152,7 +152,7 @@ public class Rate_Frame extends JFrame implements ActionListener {
         set_rate =new JButton("set_rate");
         set_rate.setFont(f1);
 
-        Sumbit = new JButton("Запрос");
+        Sumbit = new JButton("Request");
         Sumbit.setFont(f1);
         Sumbit.addActionListener(new ActionListener() {
             @Override
@@ -170,7 +170,7 @@ public class Rate_Frame extends JFrame implements ActionListener {
             }
         });
 
-        Clear = new JButton("очистить");
+        Clear = new JButton("clear");
         Clear.setFont(f1);
         Clear.addActionListener(new ActionListener() {
             @Override
@@ -181,7 +181,7 @@ public class Rate_Frame extends JFrame implements ActionListener {
                 JTF2.setText("0");
             }
         });
-        Change = new JButton("обмен");
+        Change = new JButton("change");
         Change.setFont(f1);
         Change.addActionListener(new ActionListener() {
             @Override
@@ -220,7 +220,7 @@ public class Rate_Frame extends JFrame implements ActionListener {
         jPanel4.add(jPanel3);
 
         jPanel1 = new JPanel();
-        b1 = new JButton("Назад");
+        b1 = new JButton("back");
         b1.setFont(f1);
         b1.addActionListener(this);
         insert.addActionListener(this);

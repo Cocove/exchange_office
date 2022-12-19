@@ -43,7 +43,7 @@ public class set_Rate_Frame extends JFrame implements ActionListener {
             System.out.println(" 实例化Statement对象...");
             stmt = conn.createStatement();
 
-            this.setTitle("exchange office");
+            this.setTitle("Set the exchange rate interface");
             this.setSize(my_width, my_height);
             this.setLocationRelativeTo(null);
 

@@ -1,6 +1,12 @@
 package Histroy;
 
 
+import Exchange_MAIN.MainFrame;
+import Rate.RateAPI;
+import Rate.get_Rate;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,15 +23,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 
-import Rate.RateAPI;
-import Rate.get_Rate;
-import Exchange_MAIN.MainFrame;
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
 
-
-public class PrinrFrame extends JFrame implements ActionListener{
+public class PrinrFrame extends JFrame implements ActionListener {
     private final int my_width = 600;
     private final int my_height = 400;
 
@@ -98,16 +97,17 @@ public class PrinrFrame extends JFrame implements ActionListener{
 
     private double huilv;
 
-    private  double num1;
+    private double num1;
     private double num2;
     private String Privilege;
 
     private String xuanzhong1 = "USD";
     private String xuanzhong2 = "USD";
-    public PrinrFrame(){
 
-        this.setTitle("exchange office");
-        this.setSize(my_width,my_height);
+    public PrinrFrame() {
+
+        this.setTitle("transaction interface");
+        this.setSize(my_width, my_height);
         this.setLocationRelativeTo(null);
 
         Privilege = MainFrame.getPrivilege();
@@ -127,13 +127,13 @@ public class PrinrFrame extends JFrame implements ActionListener{
         this.setIconImage(image.getImage());
 
         Color myWhite = new Color(0, 200, 0);
-        Container con=this.getContentPane();
+        Container con = this.getContentPane();
         con.setBackground(Color.white);
 
-        Font f = new Font("Times New Roman",Font.PLAIN,40);
-        Font f1 = new Font("Times New Roman",Font.PLAIN,25);
-        Dimension preferredSize1 = new Dimension(600,100);
-        setLayout(new BorderLayout(0,10));
+        Font f = new Font("Times New Roman", Font.PLAIN, 40);
+        Font f1 = new Font("Times New Roman", Font.PLAIN, 25);
+        Dimension preferredSize1 = new Dimension(600, 100);
+        setLayout(new BorderLayout(0, 10));
 
         //上方文字
         jPanel1 = new JPanel();
@@ -141,7 +141,7 @@ public class PrinrFrame extends JFrame implements ActionListener{
         jPanel1.setPreferredSize(preferredSize1);
         jPanel1.setLayout(new BorderLayout());
 
-        JL = new JLabel("Печать справки");
+        JL = new JLabel("transaction interface");
 
         JL.setFont(f);
         JL.setHorizontalAlignment(SwingConstants.CENTER);
@@ -149,7 +149,7 @@ public class PrinrFrame extends JFrame implements ActionListener{
 
 
         jPanel2 = new JPanel();
-        jPanel2.setLayout(new GridLayout(6,1));
+        jPanel2.setLayout(new GridLayout(6, 1));
         jPanel2.setBackground(Color.white);
 
         jPanel5 = new JPanel();
@@ -192,8 +192,7 @@ public class PrinrFrame extends JFrame implements ActionListener{
         comboBox2 = new JComboBox();
         String[] strArr = {"USD", "EUR", "CNY", "BYN"};
 
-        for (String item : strArr)
-        {
+        for (String item : strArr) {
             comboBox1.addItem(item);
             comboBox2.addItem(item);
         }
@@ -201,8 +200,8 @@ public class PrinrFrame extends JFrame implements ActionListener{
             @Override
             public void itemStateChanged(ItemEvent e) {
 
-                if(e.getStateChange() == ItemEvent.SELECTED){
-                    xuanzhong1 =  (String) comboBox1.getSelectedItem();
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    xuanzhong1 = (String) comboBox1.getSelectedItem();
                     RateAPI.setHuobi1(xuanzhong1);
 
                 }
@@ -212,8 +211,8 @@ public class PrinrFrame extends JFrame implements ActionListener{
             @Override
             public void itemStateChanged(ItemEvent e) {
 
-                if(e.getStateChange() == ItemEvent.SELECTED){
-                    xuanzhong2 =  (String) comboBox2.getSelectedItem();
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    xuanzhong2 = (String) comboBox2.getSelectedItem();
                     RateAPI.setHuobi2(xuanzhong2);
 
                 }
@@ -241,9 +240,9 @@ public class PrinrFrame extends JFrame implements ActionListener{
         jPanel3 = new JPanel();
         jPanel3.setBackground(Color.white);
         jPanel3.setLayout(new BorderLayout());
-        image.setImage(image.getImage().getScaledInstance(70,70,Image.SCALE_DEFAULT));
+        image.setImage(image.getImage().getScaledInstance(70, 70, Image.SCALE_DEFAULT));
         jLabel3 = new JLabel(image);
-        jLabel3.setSize(50,50);
+        jLabel3.setSize(50, 50);
         jLabel3.setHorizontalAlignment(SwingConstants.CENTER);
         jPanel3.add(jLabel3);
 
@@ -251,9 +250,9 @@ public class PrinrFrame extends JFrame implements ActionListener{
         jPanel4 = new JPanel();
         jPanel4.setBackground(Color.white);
         jPanel4.setLayout(new FlowLayout(FlowLayout.CENTER));
-        b1 = new JButton("Назад");
+        b1 = new JButton("back");
         b1.setFocusPainted(false);
-        b2 = new JButton("Печать справки");
+        b2 = new JButton("trade");
         b3 = new JButton("find histroy");
         jPanel4.add(b1);
         jPanel4.add(b2);
@@ -261,14 +260,14 @@ public class PrinrFrame extends JFrame implements ActionListener{
 
 
         //设置按钮可见
-        if(Privilege.equals("costomer")){
+        if (Privilege.equals("costomer")) {
             b3.setVisible(false);
         }
 
         this.add(jPanel1, BorderLayout.NORTH);
         this.add(jPanel2, BorderLayout.CENTER);
-        this.add(jPanel3,BorderLayout.EAST);
-        this.add(jPanel4,BorderLayout.SOUTH);
+        this.add(jPanel3, BorderLayout.EAST);
+        this.add(jPanel4, BorderLayout.SOUTH);
 
         b1.addActionListener(this);
         b2.addActionListener(this);
@@ -282,15 +281,14 @@ public class PrinrFrame extends JFrame implements ActionListener{
     }
 
     //String 转 double
-    public  double stringToDouble(String doublestr)
-    {
+    public double stringToDouble(String doublestr) {
         Double Adouble;
         Adouble = Double.parseDouble(doublestr);
         return Adouble;
     }
+
     //double 转 String
-    public String doubleToString(double value)
-    {
+    public String doubleToString(double value) {
         Double aDouble = new Double(value);
         return aDouble.toString();
 
@@ -298,13 +296,12 @@ public class PrinrFrame extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == b1){
+        if (e.getSource() == b1) {
             this.setVisible(false);
             new MainFrame().setVisible(true);
             System.out.println("back main");
         }
-        if(e.getSource() == b2)
-        {
+        if (e.getSource() == b2) {
             try {
                 panduan();
                 UpdateDate();
@@ -321,7 +318,7 @@ public class PrinrFrame extends JFrame implements ActionListener{
         }
 
 
-        if(e.getSource() == b3){
+        if (e.getSource() == b3) {
             dbHistory.getHistory();
             new dbHistroyFrame();
             this.setVisible(false);
@@ -359,10 +356,11 @@ public class PrinrFrame extends JFrame implements ActionListener{
     }
 
     private Date stringTodate(String datestr) throws ParseException {
-        DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
         Date date = fmt.parse(datestr);
         return date;
     }
+
     private String dateToString(Date date) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String getdate = sdf.format(date);
@@ -382,93 +380,95 @@ public class PrinrFrame extends JFrame implements ActionListener{
 
 
         String name = JTF2.getText();
-        SimpleDateFormat f = new SimpleDateFormat( "yyyy-MM-dd");
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
         Date date1 = (Date) datePicker.getModel().getValue();
         String date = f.format(date1);
 
-        double limit = getLimitnum(stmt,name);
+        double limit = getLimitnum(stmt, name);
 
-        if(existName(stmt,name,date)) {//如果查询到当日数据
+        if (existName(stmt, name, date)) {//如果查询到当日数据
             get_Rate gr = new get_Rate();
-            String huobi1 = getmoneyCurreny(stmt,name,date);
+            String huobi1 = getmoneyCurreny(stmt, name, date);
             String huobi2 = "BYN";
-            RateAPI.setHuobi1(getmoneyCurreny(stmt,name,date));
+            RateAPI.setHuobi1(getmoneyCurreny(stmt, name, date));
             RateAPI.setHuobi2("BYN");
-            String rate = doubleToString(gr.get_rate(huobi1,huobi2));
+            String rate = doubleToString(gr.get_rate(huobi1, huobi2));
             double ratenum1 = stringToDouble(rate);
-            double buynum1 = getmoney(stmt,name,date);
-            double sum1= ratenum1 * buynum1;
-            if(sum1 > limit){
-                JOptionPane.showMessageDialog(null, "超过限制", "标题",JOptionPane.WARNING_MESSAGE);
-            }else{
+            double buynum1 = getmoney(stmt, name, date);
+            double sum1 = ratenum1 * buynum1;
+            if (sum1 > limit) {
+                JOptionPane.showMessageDialog(null, "超过限制", "标题", JOptionPane.WARNING_MESSAGE);
+            } else {
                 String str1;
-                String str2 ;
+                String str2;
                 str1 = (String) comboBox1.getSelectedItem();
                 str2 = (String) comboBox2.getSelectedItem();
                 RateAPI.setHuobi1(str1);
                 RateAPI.setHuobi2("BYN");
-                rate = doubleToString(gr.get_rate(str1,"BYN"));
+                rate = doubleToString(gr.get_rate(str1, "BYN"));
                 double ratenum = stringToDouble(rate);
                 double buynum = stringToDouble(JTF3.getText());
                 double sumnum = ratenum * buynum;
-                double sum = sum1+ sumnum;
+                double sum = sum1 + sumnum;
                 //获得兑换的钱
-                if(sum>limit){
-                    JOptionPane.showMessageDialog(null, "超过限制", "标题",JOptionPane.WARNING_MESSAGE);
-                }else {
-                    SimpleDateFormat f1 = new SimpleDateFormat( "yyyy-MM-dd");
+                if (sum > limit) {
+                    JOptionPane.showMessageDialog(null, "超过限制", "标题", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    SimpleDateFormat f1 = new SimpleDateFormat("yyyy-MM-dd");
                     Date date2 = (Date) datePicker.getModel().getValue();
                     String date3 = f1.format(date2);
                     RateAPI.setHuobi2(str2);
-                    rate = doubleToString(gr.get_rate(str1,str2));
+                    rate = doubleToString(gr.get_rate(str1, str2));
                     ratenum = stringToDouble(rate);
                     buynum = stringToDouble(JTF3.getText());
                     sumnum = ratenum * buynum;
                     JTF4.setText(doubleToString(sumnum));
-                    new PrintTicket(datePicker,JTF1.getText(),JTF3.getText(),JTF4.getText(),comboBox1.getSelectedItem().toString(),comboBox2.getSelectedItem().toString(),JTF2.getText());
-                    dbHistory.addHistory(getJTF1(),getJTF2(),getJTF3(),getJTF4(),getXuanzhong1(),getXuanzhong2(),date3);
+                    new PrintTicket(datePicker, JTF1.getText(), JTF3.getText(), JTF4.getText(), comboBox1.getSelectedItem().toString(), comboBox2.getSelectedItem().toString(), JTF2.getText());
+                    dbHistory.addHistory(getJTF1(), getJTF2(), getJTF3(), getJTF4(), getXuanzhong1(), getXuanzhong2(), date3);
                     Limit_get_Money.LimitMoney();
+                    set_daliy_histroy.set_daliy_histroy();
                 }
             }
-        }else{//如果查询不到当日数据
+        } else {//如果查询不到当日数据
             get_Rate gr = new get_Rate();
             String str1;
-            String str2 ;
+            String str2;
             str1 = (String) comboBox1.getSelectedItem();
             str2 = (String) comboBox2.getSelectedItem();
             RateAPI.setHuobi1(str1);
             RateAPI.setHuobi2("BYN");
-            String rate =doubleToString(gr.get_rate(str1,"BYN"));
+            String rate = doubleToString(gr.get_rate(str1, "BYN"));
             double ratenum = stringToDouble(rate);
             double buynum = stringToDouble(JTF3.getText());
             double sumnum = ratenum * buynum;
             //获得兑换的钱
-            if(sumnum>limit){
-                JOptionPane.showMessageDialog(null, "超过限制", "标题",JOptionPane.WARNING_MESSAGE);
-            }else {
-                SimpleDateFormat f1 = new SimpleDateFormat( "yyyy-MM-dd");
+            if (sumnum > limit) {
+                JOptionPane.showMessageDialog(null, "超过限制", "标题", JOptionPane.WARNING_MESSAGE);
+            } else {
+                SimpleDateFormat f1 = new SimpleDateFormat("yyyy-MM-dd");
                 Date date2 = (Date) datePicker.getModel().getValue();
                 String date3 = f1.format(date2);
                 RateAPI.setHuobi2(str2);
-                rate =doubleToString(gr.get_rate(str1,str2));
+                rate = doubleToString(gr.get_rate(str1, str2));
                 ratenum = stringToDouble(rate);
                 buynum = stringToDouble(JTF3.getText());
                 sumnum = ratenum * buynum;
                 JTF4.setText(doubleToString(sumnum));
-                new PrintTicket(datePicker,JTF1.getText(),JTF3.getText(),JTF4.getText(),comboBox1.getSelectedItem().toString(),comboBox2.getSelectedItem().toString(),JTF2.getText());
-                dbHistory.addHistory(getJTF1(),getJTF2(),getJTF3(),getJTF4(),getXuanzhong1(),getXuanzhong2(),date3);
+                new PrintTicket(datePicker, JTF1.getText(), JTF3.getText(), JTF4.getText(), comboBox1.getSelectedItem().toString(), comboBox2.getSelectedItem().toString(), JTF2.getText());
+                dbHistory.addHistory(getJTF1(), getJTF2(), getJTF3(), getJTF4(), getXuanzhong1(), getXuanzhong2(), date3);
                 Limit_get_Money.LimitMoney();
+                set_daliy_histroy.set_daliy_histroy();
             }
         }
-       /* */
+        /* */
     }
 
-    public double getmoney(Statement stmt,String name,String date){
+    public double getmoney(Statement stmt, String name, String date) {
         double getmoney = 0;
         try {
             // 注册 JDBC 驱动
             String sql;
-            sql = "SELECT user_get_usd FROM user_limit where user_name = '"+ name +"' and submission_date = '"+ date +"'";
+            sql = "SELECT user_get_usd FROM user_limit where user_name = '" + name + "' and submission_date = '" + date + "'";
             ResultSet rs = stmt.executeQuery(sql);
             int Index = 0;
             String str = null;
@@ -487,11 +487,12 @@ public class PrinrFrame extends JFrame implements ActionListener{
         }
         return getmoney;
     }
-    public String getmoneyCurreny(Statement stmt ,String name,String date){
+
+    public String getmoneyCurreny(Statement stmt, String name, String date) {
         String str = null;
         try {
             String sql;
-            sql = "SELECT user_get_limit FROM user_limit where user_name = '"+ name +"' and submission_date = '"+ date +"'";
+            sql = "SELECT user_get_limit FROM user_limit where user_name = '" + name + "' and submission_date = '" + date + "'";
             ResultSet rs = stmt.executeQuery(sql);
             int Index = 0;
             while (rs.next()) {
@@ -507,10 +508,10 @@ public class PrinrFrame extends JFrame implements ActionListener{
         return str;
     }
 
-    public double getLimitnum(Statement stmt ,String name) throws SQLException {
+    public double getLimitnum(Statement stmt, String name) throws SQLException {
         double getmoney;
         String sql;
-        sql = "SELECT user_limit_day FROM user_acc_pss where user_name = '"+ name +"'";
+        sql = "SELECT user_limit_day FROM user_acc_pss where user_name = '" + name + "'";
         ResultSet rs = stmt.executeQuery(sql);
         int Index = 0;
         String str = null;
@@ -527,16 +528,15 @@ public class PrinrFrame extends JFrame implements ActionListener{
         return getmoney;
     }
 
-    public static boolean existName(Statement stmt,String name,String date) throws SQLException {
+    public static boolean existName(Statement stmt, String name, String date) throws SQLException {
         String sql;
-        sql = "SELECT 1 FROM user_limit WHERE user_name = '"+ name +"' and submission_date = '" + date +"'  LIMIT 1";
+        sql = "SELECT 1 FROM user_limit WHERE user_name = '" + name + "' and submission_date = '" + date + "'  LIMIT 1";
         ResultSet rs = stmt.executeQuery(sql);
         Integer exist = 0;
         if (rs.next()) {
             exist = rs.getInt(1);
         }
-        if(exist == 0)
-        {
+        if (exist == 0) {
             return false;
         } else {
             return true;
@@ -544,26 +544,26 @@ public class PrinrFrame extends JFrame implements ActionListener{
 
     }
 
-    private void getPersondate(){
+    private void getPersondate() {
         Connection conn;
         PreparedStatement preparedStatement = null;
         try {
-            Class.forName(JDBC_DRIVER);	//连接驱动
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);	//连接数据库
-            preparedStatement = conn.prepareStatement("select * from exchange_office_user where user_acc = '"+ acc1 +"' ");
+            Class.forName(JDBC_DRIVER);    //连接驱动
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);    //连接数据库
+            preparedStatement = conn.prepareStatement("select * from exchange_office_user where user_acc = '" + acc1 + "' ");
             ResultSet result1 = preparedStatement.executeQuery();
 
             money = new ArrayList();
             Person = new ArrayList();
             ResultSetMetaData rsmd = result1.getMetaData();
-            for(int i = 3; i < rsmd.getColumnCount() - 1; i++){
+            for (int i = 3; i < rsmd.getColumnCount() - 1; i++) {
 
                 money.add(rsmd.getColumnName(i).toString());
             }
 
 
-            while(result1.next()){
-                for(int i = 0; i < money.size(); i++){
+            while (result1.next()) {
+                for (int i = 0; i < money.size(); i++) {
                     System.out.println(result1.getString(money.get(i)));
                     Person.add(result1.getString(money.get(i)));
                 }
@@ -581,53 +581,53 @@ public class PrinrFrame extends JFrame implements ActionListener{
     }
 
 
-   public String getcomboBox1Text() {
+    public String getcomboBox1Text() {
         return comboBox1.getSelectedItem().toString();
     }
 
-     public String getcomboBox2Text() {
+    public String getcomboBox2Text() {
         return comboBox2.getSelectedItem().toString();
     }
 
 
-    private void UpdateDate(){
+    private void UpdateDate() {
         Connection conn;
         PreparedStatement preparedStatement = null;
         try {
-            Class.forName(JDBC_DRIVER);	//连接驱动
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);	//连接数据库
-            String sql= null;
-            for(int i = 0;i<money.size();i++){
-                if(money.get(i).equals(getcomboBox1Text())){
-                    sql = "UPDATE exchange_office_user SET " +money.get(i)+" = ?   WHERE user_acc= '" + acc1 +"'";
+            Class.forName(JDBC_DRIVER);    //连接驱动
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);    //连接数据库
+            String sql = null;
+            for (int i = 0; i < money.size(); i++) {
+                if (money.get(i).equals(getcomboBox1Text())) {
+                    sql = "UPDATE exchange_office_user SET " + money.get(i) + " = ?   WHERE user_acc= '" + acc1 + "'";
                     preparedStatement = conn.prepareStatement(sql);
                     double num = 0;
-                    num = stringToDouble(Person.get(i)) -stringToDouble(getJTF3());
+                    num = stringToDouble(Person.get(i)) - stringToDouble(getJTF3());
                     String num1 = doubleToString(num);
-                    preparedStatement.setString(1,num1);
-                    int resultSet=preparedStatement.executeUpdate();
-                    if(resultSet>0){
+                    preparedStatement.setString(1, num1);
+                    int resultSet = preparedStatement.executeUpdate();
+                    if (resultSet > 0) {
                         //如果插入成功，则打印success
                         System.out.println("Sucess");
-                    }else{
+                    } else {
                         //如果插入失败，则打印Failure
                         System.out.println(resultSet);
                         System.out.println("Failure");
                     }
                     System.out.println(num1);
                 }
-                if(money.get(i).equals(getcomboBox2Text())){
-                    sql = "UPDATE exchange_office_user SET " +money.get(i)+" = ?   WHERE user_acc= '" + acc1 +"'";
+                if (money.get(i).equals(getcomboBox2Text())) {
+                    sql = "UPDATE exchange_office_user SET " + money.get(i) + " = ?   WHERE user_acc= '" + acc1 + "'";
                     preparedStatement = conn.prepareStatement(sql);
                     double num = 0;
                     num = stringToDouble(Person.get(i)) + stringToDouble(getJTF4());
                     String num1 = doubleToString(num);
-                    preparedStatement.setString(1,num1);
-                    int resultSet=preparedStatement.executeUpdate();
-                    if(resultSet>0){
+                    preparedStatement.setString(1, num1);
+                    int resultSet = preparedStatement.executeUpdate();
+                    if (resultSet > 0) {
                         //如果插入成功，则打印success
                         System.out.println("Sucess");
-                    }else{
+                    } else {
                         //如果插入失败，则打印Failure
                         System.out.println(resultSet);
                         System.out.println("Failure");
@@ -646,30 +646,31 @@ public class PrinrFrame extends JFrame implements ActionListener{
         }
     }
 
-    private void setJTF2(String name){
+    private void setJTF2(String name) {
         JTF2.setText(name);
     }
-    private void setJTF1(String name){
+
+    private void setJTF1(String name) {
         JTF1.setText(name);
     }
 
-    private void setname(){
+    private void setname() {
         Connection conn;
         PreparedStatement preparedStatement = null;
         try {
-            Class.forName(JDBC_DRIVER);	//连接驱动
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);	//连接数据库
-            preparedStatement = conn.prepareStatement("select user_name from user_acc_pss where user_acc = '"+ acc1 +"' ");
+            Class.forName(JDBC_DRIVER);    //连接驱动
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);    //连接数据库
+            preparedStatement = conn.prepareStatement("select user_name from user_acc_pss where user_acc = '" + acc1 + "' ");
             ResultSet result1 = preparedStatement.executeQuery();
             ResultSetMetaData rsmd = result1.getMetaData();
-            while(result1.next()){
+            while (result1.next()) {
                 name = result1.getString("user_name");
             }
             setJTF2(name);
-            if(!MainFrame.getPrivilege().equals("costomer")){
-                preparedStatement = conn.prepareStatement("select user_name from user_acc_pss where user_acc = '"+ acc +"' ");
+            if (!MainFrame.getPrivilege().equals("costomer")) {
+                preparedStatement = conn.prepareStatement("select user_name from user_acc_pss where user_acc = '" + acc + "' ");
                 result1 = preparedStatement.executeQuery();
-                while(result1.next()){
+                while (result1.next()) {
                     name = result1.getString("user_name");
                 }
                 setJTF1(name);

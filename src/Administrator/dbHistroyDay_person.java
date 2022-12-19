@@ -29,7 +29,7 @@ import java.util.Vector;
 
 
         public dbHistroyDay_person(){
-            this.setTitle("find histroy");
+            this.setTitle("daily history personl");
             this.setSize(my_width,my_height);
             this.setLocationRelativeTo(null);
 

@@ -31,7 +31,7 @@ public class dbHistroyFrame extends JFrame implements ActionListener {
 
 
     public dbHistroyFrame(){
-        this.setTitle("find histroy");
+        this.setTitle("Historical operation record interface");
         this.setSize(my_width,my_height);
         this.setLocationRelativeTo(null);
 
