@@ -168,9 +168,9 @@ public class MainFrame extends JFrame implements ActionListener {
         b5.addActionListener(this);
         b6.addActionListener(this);
 
-        System.out.println(this.acc);
+        //System.out.println(this.acc);
 
-        System.out.println(Privilege);
+        //System.out.println(Privilege);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

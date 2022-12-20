@@ -141,12 +141,12 @@ public class Change_User_Permissions_Frame extends JFrame implements ActionListe
                 se.printStackTrace();
             }
         }
-        System.out.println("数据改变成功");
+        //System.out.println("数据改变成功");
 
     }
     public void getFarFrame(user_frame userFrame) {
         this.userFrame = userFrame;
-        System.out.println("父窗口");
+        //System.out.println("父窗口");
     }
 }
 

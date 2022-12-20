@@ -38,10 +38,10 @@ public class dbHistory {
             Class.forName(JDBC_DRIVER);
 
             // 打开链接
-            System.out.println("连接数据库...");
+            //System.out.println("连接数据库...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
             // 执行查询
-            System.out.println(" 实例化Statement对象...");
+            //System.out.println(" 实例化Statement对象...");
             String sql;
             sql =  "insert into histroy (employee,customer,buy_currency,customer_buy,get_currency,customer_get,submission_date) values(?,?,?,?,?,?,?)";
             ps=conn.prepareStatement(sql);
@@ -57,10 +57,10 @@ public class dbHistory {
             // 展开结果集数据库
             if(resultSet>0){
                 //如果插入成功，则打印success
-                System.out.println("Sucess");
+                //System.out.println("Sucess");
             }else{
                 //如果插入失败，则打印Failure
-                System.out.println("Failure");
+                //System.out.println("Failure");
             }
             // 完成后关闭
             ps.close();
@@ -83,7 +83,7 @@ public class dbHistory {
                 se.printStackTrace();
             }
         }
-        System.out.println("Goodbye!");
+        //System.out.println("Goodbye!");
     }
     public static void getHistory(){
 
@@ -94,11 +94,11 @@ public class dbHistory {
             Class.forName(JDBC_DRIVER);
 
             // 打开链接
-            System.out.println("连接数据库...");
+            //System.out.println("连接数据库...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
             // 执行查询
-            System.out.println(" 实例化Statement对象...");
+            //System.out.println(" 实例化Statement对象...");
             stmt = conn.createStatement();
             String sql;
 
@@ -108,9 +108,9 @@ public class dbHistory {
             int Index = 0;
 
             ResultSetMetaData rsmd = rs.getMetaData();
-            System.out.println(rsmd.getColumnCount());
+            //System.out.println(rsmd.getColumnCount());
             for(int i = 1; i <= rsmd.getColumnCount(); i++)
-                System.out.println(rsmd.getColumnName(i));
+                //System.out.println(rsmd.getColumnName(i));
 
             // 展开结果集数据库
 
@@ -139,14 +139,14 @@ public class dbHistory {
 
 
                     // 输出数据
-                    System.out.print("m_employee: " + m_employee.get(Index));
+                   /* System.out.print("m_employee: " + m_employee.get(Index));
                     System.out.print(", m_customer: " + m_customer.get(Index));
                     System.out.print(",  m_buy_currency: " + m_buy_currency.get(Index));
                     System.out.print(",  m_customer_buy: " + m_customer_buy.get(Index));
                     System.out.print(",  m_get_currency: " + m_get_currency.get(Index));
                     System.out.print(",  m_customer_get: " + m_customer_get.get(Index));
                     System.out.print(",  m_date: " + m_date.get(Index).toString());
-                    System.out.print("\n");
+                    System.out.print("\n");*/
                     Index++;
 
                 }

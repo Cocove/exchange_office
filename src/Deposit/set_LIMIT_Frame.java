@@ -40,10 +40,10 @@ public class set_LIMIT_Frame extends JFrame implements ActionListener {
             // 注册 JDBC 驱动
             Class.forName(JDBC_DRIVER);
             // 打开链接
-            System.out.println("连接数据库...");
+            //System.out.println("连接数据库...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             // 执行查询
-            System.out.println(" 实例化Statement对象...");
+            //System.out.println(" 实例化Statement对象...");
             stmt = conn.createStatement();
 
             this.setTitle("Set User Limit_get_money Interface");
@@ -99,7 +99,7 @@ public class set_LIMIT_Frame extends JFrame implements ActionListener {
             name = getJTF1();
             money = getJTF2();
             exchange_LIMIT(conn,name,money);
-            System.out.println(getJTF1());
+            //System.out.println(getJTF1());
         }
     }
 
@@ -120,12 +120,12 @@ public class set_LIMIT_Frame extends JFrame implements ActionListener {
             int resultSet=ps.executeUpdate();
             if(resultSet>0){
                 //如果插入成功，则打印success
-                System.out.println("Sucess");
-                System.out.println(name);
+                //System.out.println("Sucess");
+                //System.out.println(name);
 
             }else{
                 //如果插入失败，则打印Failure
-                System.out.println("Failure");
+               // System.out.println("Failure");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block

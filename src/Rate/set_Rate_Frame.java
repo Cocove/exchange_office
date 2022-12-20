@@ -37,10 +37,10 @@ public class set_Rate_Frame extends JFrame implements ActionListener {
             // 注册 JDBC 驱动
             Class.forName(JDBC_DRIVER);
             // 打开链接
-            System.out.println("连接数据库...");
+            // System.out.println("连接数据库...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             // 执行查询
-            System.out.println(" 实例化Statement对象...");
+            //System.out.println(" 实例化Statement对象...");
             stmt = conn.createStatement();
 
             this.setTitle("Set the exchange rate interface");
@@ -53,9 +53,8 @@ public class set_Rate_Frame extends JFrame implements ActionListener {
             JTF1 = new JTextField(10);
             name = JTF1.getText();
             comboBox1 = new JComboBox();
-            String[] strArr = { "EUR", "CNY", "BYN"};
-            for (String item : strArr)
-            {
+            String[] strArr = {"EUR", "CNY", "BYN"};
+            for (String item : strArr) {
                 comboBox1.addItem(item);
             }
             jPanel = new JPanel();
@@ -68,7 +67,6 @@ public class set_Rate_Frame extends JFrame implements ActionListener {
 
 
             jPanel.add(jPanel1);
-
 
 
             b1 = new JButton("submit");
@@ -91,7 +89,7 @@ public class set_Rate_Frame extends JFrame implements ActionListener {
             name = getSelcte();
             money = getJTF1();
             exchange_Rate(conn, name, money);
-            System.out.println(getJTF1());
+            //System.out.println(getJTF1());
         }
     }
 
@@ -100,26 +98,27 @@ public class set_Rate_Frame extends JFrame implements ActionListener {
     }
 
 
-
-    public String getSelcte(){return comboBox1.getSelectedItem().toString();}
+    public String getSelcte() {
+        return comboBox1.getSelectedItem().toString();
+    }
 
 
     public static void exchange_Rate(Connection connection, String user_select, String rate) {
         PreparedStatement ps = null;
         try {
-            String sql = "UPDATE day_rate SET "+user_select+"  = ?  WHERE 1 ORDER BY id DESC LIMIT 1";
+            String sql = "UPDATE day_rate SET " + user_select + "  = ?  WHERE 1 ORDER BY id DESC LIMIT 1";
             ps = connection.prepareStatement(sql);
 
             ps.setString(1, rate);
             int resultSet = ps.executeUpdate();
             if (resultSet > 0) {
                 //如果插入成功，则打印success
-                System.out.println("Sucess");
+                //System.out.println("Sucess");
 
 
             } else {
                 //如果插入失败，则打印Failure
-                System.out.println("Failure");
+                //System.out.println("Failure");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block

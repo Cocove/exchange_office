@@ -131,7 +131,7 @@ public class Delect_User_Frame extends JFrame implements ActionListener {
                 se.printStackTrace();
             }
         }
-        System.out.println("数据删除成功");
+        //System.out.println("数据删除成功");
 
     }
 
@@ -139,7 +139,7 @@ public class Delect_User_Frame extends JFrame implements ActionListener {
 
     public void getFarFrame(user_frame userFrame){
         this.userFrame = userFrame;
-        System.out.println("父窗口");
+        //System.out.println("父窗口");
     }
 }
 

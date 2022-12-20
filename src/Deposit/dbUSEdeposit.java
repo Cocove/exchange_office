@@ -32,11 +32,11 @@ public class dbUSEdeposit {
             Class.forName(JDBC_DRIVER);
 
             // 打开链接
-            System.out.println("连接数据库...");
+            //System.out.println("连接数据库...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
             // 执行查询
-            System.out.println(" 实例化Statement对象...");
+            //System.out.println(" 实例化Statement对象...");
             stmt = conn.createStatement();
             String sql;
 
@@ -59,7 +59,7 @@ public class dbUSEdeposit {
 
 
                 // 输出数据
-                System.out.print("user_name: " + user_name.get(Index));
+                /*System.out.print("user_name: " + user_name.get(Index));
                 System.out.print(", user_USD: " + user_usd.get(Index));
                 System.out.print(",  user_CNY: " + user_cny.get(Index));
 
@@ -67,7 +67,7 @@ public class dbUSEdeposit {
                 System.out.print(",  user_BYR: " + user_byr.get(Index));
                 System.out.print(",  user_UAH: " + user_uah.get(Index));
 
-                System.out.print("\n");
+                System.out.print("\n");*/
                 Index++;
             }
             // 完成后关闭

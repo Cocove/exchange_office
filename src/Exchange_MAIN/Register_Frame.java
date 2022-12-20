@@ -136,7 +136,7 @@ public class Register_Frame extends JFrame implements ActionListener {
             //实例化Statement对象
             String Privilege = "costomer";
             Date date=new Date();//此时date为当前的时间
-            System.out.println(date);
+            //System.out.println(date);
             SimpleDateFormat dateFormat=new SimpleDateFormat("YYYY-MM-dd");//设置当前时间的格式，为年-月-日
             String nowdate = dateFormat.format(date);
 
@@ -154,10 +154,10 @@ public class Register_Frame extends JFrame implements ActionListener {
             int resultSet=ps.executeUpdate();
             if(resultSet>0){
                 //如果插入成功，则打印success
-                System.out.println("Sucess");
+                //System.out.println("Sucess");
             }else{
                 //如果插入失败，则打印Failure
-                System.out.println("Failure");
+                //System.out.println("Failure");
             }
             // 完成后关闭
             ps.close();
@@ -181,7 +181,7 @@ public class Register_Frame extends JFrame implements ActionListener {
                 se.printStackTrace();
             }
         }
-        System.out.println("数据删除成功");
+        //System.out.println("数据删除成功");
 
     }
     public static boolean existacc(String acc) throws SQLException {

@@ -117,11 +117,11 @@ public class set_up_account extends JFrame implements ActionListener {
 
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
-            System.out.println("未成功加载驱动。");
+            //.out.println("未成功加载驱动。");
             e.printStackTrace();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            System.out.println("未成功打开数据库。");
+            //System.out.println("未成功打开数据库。");
             e.printStackTrace();
         }
         if (exist == 0) {
@@ -132,7 +132,7 @@ public class set_up_account extends JFrame implements ActionListener {
     }
     public void getFarFrame(MainFrame userFrame){
         this.userFrame = userFrame;
-        System.out.println("父窗口");
+        //System.out.println("父窗口");
     }
 }
     

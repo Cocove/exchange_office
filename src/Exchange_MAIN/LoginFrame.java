@@ -211,7 +211,7 @@ public class LoginFrame extends JFrame implements ActionListener{
             try {
                 if(exist_acc(getJTF1())){
                     if(correct_pss(getJTF1(), getJTF2())){
-                        System.out.println("登陆成功");
+                        //System.out.println("登陆成功");
                         this.setVisible(false);
                         PrinrFrame.setAcc(getJTF1());
                         MainFrame.setAcc(getJTF1());
@@ -219,12 +219,12 @@ public class LoginFrame extends JFrame implements ActionListener{
 
                         Deter_user_permiss();
                     }else{
-                        System.out.println("密码错误");
-                        JOptionPane.showMessageDialog(null, "密码错误", "警告",JOptionPane.WARNING_MESSAGE);
+                        //System.out.println("密码错误");
+                        JOptionPane.showMessageDialog(null, "wrong password", "error",JOptionPane.WARNING_MESSAGE);
                     }
                 }else{
-                    System.out.println("不存在此用户名");
-                    JOptionPane.showMessageDialog(null, "用户不存在", "警告",JOptionPane.WARNING_MESSAGE);
+                    //System.out.println("不存在此用户名");
+                    JOptionPane.showMessageDialog(null, "User does not exist", "error",JOptionPane.WARNING_MESSAGE);
                 }
 
             } catch (SQLException | ClassNotFoundException throwables) {

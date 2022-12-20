@@ -28,10 +28,10 @@ public class set_daliy_histroy {
             // 注册 JDBC 驱动
             Class.forName(JDBC_DRIVER);
             // 打开链接
-            System.out.println("连接数据库...");
+            //System.out.println("连接数据库...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             // 执行查询
-            System.out.println(" 实例化Statement对象...");
+            //System.out.println(" 实例化Statement对象...");
             stmt = conn.createStatement();
 
             clearList();
@@ -52,13 +52,13 @@ public class set_daliy_histroy {
     public static void panduan(Connection conn, Statement stmt) throws SQLException {
         for (int i = 0; i < m_date1.size(); i++) {
 
-            System.out.println(m_date1.get(i));
+           // System.out.println(m_date1.get(i));
             if (existdate(stmt, m_date1.get(i))) {
-                System.out.println(0);
+               // System.out.println(0);
                 //updatetabel(stmt, name_list.get(i),m_date.get(i));
                 update1(conn, buy_Money_list1.get(i), m_date1.get(i));
             } else {
-                System.out.println(1);
+                //System.out.println(1);
                 //inserttabel(stmt, name_list.get(i),m_date.get(i))
                 insert1(conn, buy_Money_list1.get(i), m_date1.get(i));
             }
@@ -158,10 +158,10 @@ public class set_daliy_histroy {
             int resultSet = ps.executeUpdate();
             if (resultSet > 0) {
                 //如果插入成功，则打印success
-                System.out.println("Sucess");
+                //System.out.println("Sucess");
             } else {
                 //如果插入失败，则打印Failure
-                System.out.println("Failure");
+                //System.out.println("Failure");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -181,12 +181,12 @@ public class set_daliy_histroy {
             int resultSet = ps.executeUpdate();
             if (resultSet > 0) {
                 //如果插入成功，则打印success
-                System.out.println("Sucess");
+                //System.out.println("Sucess");
 
 
             } else {
                 //如果插入失败，则打印FailureD
-                System.out.println("Failure");
+                //System.out.println("Failure");
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block

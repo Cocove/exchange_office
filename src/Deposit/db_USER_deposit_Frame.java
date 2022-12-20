@@ -118,11 +118,12 @@ public class db_USER_deposit_Frame extends JFrame implements ActionListener {
 
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
-            System.out.println("未成功加载驱动。");
+            //System.out.println("未成功加载驱动。");
             e.printStackTrace();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            System.out.println("未成功打开数据库。");
+            //
+            // System.out.println("未成功打开数据库。");
             e.printStackTrace();
         }
 
@@ -153,11 +154,11 @@ public class db_USER_deposit_Frame extends JFrame implements ActionListener {
 
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
-            System.out.println("未成功加载驱动。");
+            //System.out.println("未成功加载驱动。");
             e.printStackTrace();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            System.out.println("未成功打开数据库。");
+            //System.out.println("未成功打开数据库。");
             e.printStackTrace();
         }
         return columnHeads;

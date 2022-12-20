@@ -299,7 +299,7 @@ public class PrinrFrame extends JFrame implements ActionListener {
         if (e.getSource() == b1) {
             this.setVisible(false);
             new MainFrame().setVisible(true);
-            System.out.println("back main");
+            //System.out.println("back main");
         }
         if (e.getSource() == b2) {
             try {
@@ -372,10 +372,10 @@ public class PrinrFrame extends JFrame implements ActionListener {
         Statement stmt = null;
         Class.forName(JDBC_DRIVER);
         // 打开链接
-        System.out.println("连接数据库...");
+        //System.out.println("连接数据库...");
         conn = DriverManager.getConnection(DB_URL, USER, PASS);
         // 执行查询
-        System.out.println(" 实例化Statement对象...");
+        //System.out.println(" 实例化Statement对象...");
         stmt = conn.createStatement();
 
 
@@ -571,11 +571,11 @@ public class PrinrFrame extends JFrame implements ActionListener {
 
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
-            System.out.println("未成功加载驱动。");
+            //System.out.println("未成功加载驱动。");
             e.printStackTrace();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            System.out.println("未成功打开数据库。");
+            //System.out.println("未成功打开数据库。");
             e.printStackTrace();
         }
     }
@@ -608,13 +608,13 @@ public class PrinrFrame extends JFrame implements ActionListener {
                     int resultSet = preparedStatement.executeUpdate();
                     if (resultSet > 0) {
                         //如果插入成功，则打印success
-                        System.out.println("Sucess");
+                        //System.out.println("Sucess");
                     } else {
                         //如果插入失败，则打印Failure
-                        System.out.println(resultSet);
-                        System.out.println("Failure");
+                        //System.out.println(resultSet);
+                        //System.out.println("Failure");
                     }
-                    System.out.println(num1);
+                    //System.out.println(num1);
                 }
                 if (money.get(i).equals(getcomboBox2Text())) {
                     sql = "UPDATE exchange_office_user SET " + money.get(i) + " = ?   WHERE user_acc= '" + acc1 + "'";
@@ -626,22 +626,22 @@ public class PrinrFrame extends JFrame implements ActionListener {
                     int resultSet = preparedStatement.executeUpdate();
                     if (resultSet > 0) {
                         //如果插入成功，则打印success
-                        System.out.println("Sucess");
+                        //System.out.println("Sucess");
                     } else {
                         //如果插入失败，则打印Failure
-                        System.out.println(resultSet);
-                        System.out.println("Failure");
+                        //System.out.println(resultSet);
+                        //System.out.println("Failure");
                     }
-                    System.out.println(num1);
+                    //System.out.println(num1);
                 }
             }
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
-            System.out.println("未成功加载驱动。");
+            //System.out.println("未成功加载驱动。");
             e.printStackTrace();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            System.out.println("未成功打开数据库。");
+            //System.out.println("未成功打开数据库。");
             e.printStackTrace();
         }
     }
@@ -677,11 +677,11 @@ public class PrinrFrame extends JFrame implements ActionListener {
             }
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
-            System.out.println("未成功加载驱动。");
+            //System.out.println("未成功加载驱动。");
             e.printStackTrace();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            System.out.println("未成功打开数据库。");
+            //System.out.println("未成功打开数据库。");
             e.printStackTrace();
         }
     }
