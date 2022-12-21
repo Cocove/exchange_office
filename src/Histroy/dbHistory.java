@@ -1,9 +1,11 @@
 package Histroy;
 //对hitroy表进行更改和查询操作
+import javax.swing.*;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class dbHistory {
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -195,5 +197,133 @@ public class dbHistory {
 
     public static List<Date> getM_date() {
         return m_date;
+    }
+
+
+    public static Vector getRows(){
+        Connection conn;
+        PreparedStatement preparedStatement = null;
+
+        Vector rows = null;
+        try {
+            Class.forName(JDBC_DRIVER);	//连接驱动
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);	//连接数据库
+//			if(!conn.isClosed())
+//				System.out.println("成功连接数据库");
+            preparedStatement = conn.prepareStatement("select * from histroy ");
+            ResultSet result1 = preparedStatement.executeQuery();
+
+            rows = new Vector();
+
+            ResultSetMetaData rsmd = result1.getMetaData();
+
+            while(result1.next()){
+                rows.addElement(getNextRow(result1,rsmd));
+            }
+
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            //System.out.println("未成功加载驱动。");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            //System.out.println("未成功打开数据库。");
+            e.printStackTrace();
+        }
+
+        return rows;
+    }
+
+    // 得到数据库表头
+    public static Vector getHead(){
+        Connection conn;
+        PreparedStatement preparedStatement = null;
+        Vector columnHeads = null;
+        try {
+            Class.forName(JDBC_DRIVER);		//连接驱动
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);	//连接数据库
+//			if(!conn.isClosed())
+//				System.out.println("成功连接数据库");
+            preparedStatement = conn.prepareStatement("select * from histroy");
+            ResultSet result1 = preparedStatement.executeQuery();
+
+            boolean moreRecords = result1.next();
+            if(!moreRecords)
+                JOptionPane.showMessageDialog(null, "结果集中无记录");
+
+            columnHeads = new Vector();
+            ResultSetMetaData rsmd = result1.getMetaData();
+            for(int i = 1; i <= rsmd.getColumnCount(); i++)
+                columnHeads.addElement(rsmd.getColumnName(i));
+
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            //System.out.println("未成功加载驱动。");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            //System.out.println("未成功打开数据库。");
+            e.printStackTrace();
+        }
+        return columnHeads;
+    }
+    // 得到数据库中下一行数据
+    private static Vector getNextRow(ResultSet rs, ResultSetMetaData rsmd) throws SQLException{
+        Vector currentRow = new Vector();
+        for(int i = 1; i <= rsmd.getColumnCount(); i++){
+            currentRow.addElement(rs.getString(i));
+        }
+        return currentRow;
+    }
+
+    public static void delect_histroy() {
+        Connection conn = null;
+        Statement stmt = null;
+        PreparedStatement ps = null;
+        try {
+            // 注册 JDBC 驱动
+            Class.forName(JDBC_DRIVER);
+            // 打开链接
+            //连接数据库
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            // 执行查询
+            //实例化Statement对象
+            stmt = conn.createStatement();
+            String sql;
+            sql = "DELETE FROM histroy WHERE trade_id=?";//向login表里删除数据
+            //注：几个问号几个ps.setString，上面的语句中只有一个?,所以下面只有一个ps.setString
+            ps = conn.prepareStatement(sql);//删除数据预处理
+            ps.setString(1, Delect_Histroy_Frame.getJTF1());//第1个问号的值"5433"
+            ps.executeUpdate();//执行删除数据
+            sql="alter table histroy drop column trade_id";
+            ps=conn.prepareStatement(sql);
+            ps.executeUpdate();
+            sql="alter table histroy add trade_id INT(15) not null primary key auto_increment first";
+            ps=conn.prepareStatement(sql);
+            ps.executeUpdate();
+            // 完成后关闭
+            ps.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException se) {
+            // 处理 JDBC 错误
+            se.printStackTrace();
+        } catch (Exception e) {
+            // 处理 Class.forName 错误
+            e.printStackTrace();
+        } finally {
+            // 关闭资源
+            try {
+                if (stmt != null) stmt.close();
+            } catch (SQLException se2) {
+            }// 什么都不做
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        //System.out.println("数据删除成功");
+
     }
 }

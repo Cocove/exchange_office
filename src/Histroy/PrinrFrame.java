@@ -60,9 +60,7 @@ public class PrinrFrame extends JFrame implements ActionListener {
     static String acc1;
 
 
-    private JButton b1;
-    private JButton b2;
-    private JButton b3;
+
     private JLabel JL;
     private JPanel jPanel1;
     private JPanel jPanel2;
@@ -74,13 +72,15 @@ public class PrinrFrame extends JFrame implements ActionListener {
     private JLabel jLabel2;
     //图片；
     private JLabel jLabel3;
-    private JTextField JTF1;
-    private JTextField JTF2;
-    private JTextField JTF3;
-    private JTextField JTF4;
+    private static JTextField JTF1;
+    private static JTextField JTF2;
+    private static JTextField JTF3;
+    private static JTextField JTF4;
     private ImageIcon image;
-    private JComboBox comboBox1;
-    private JComboBox comboBox2;
+    private static JComboBox comboBox1;
+    private static JComboBox comboBox2;
+
+    private PrintFrameController printFrameController;
 
     private JPanel jPanel5;
     private JPanel jPanel6;
@@ -91,7 +91,7 @@ public class PrinrFrame extends JFrame implements ActionListener {
     private UtilDateModel model;
     private Properties p;
     private JDatePanelImpl datePanel;
-    private JDatePickerImpl datePicker;
+    private static JDatePickerImpl datePicker;
 
     private String name;
 
@@ -101,8 +101,8 @@ public class PrinrFrame extends JFrame implements ActionListener {
     private double num2;
     private String Privilege;
 
-    private String xuanzhong1 = "USD";
-    private String xuanzhong2 = "USD";
+    private static String xuanzhong1 = "USD";
+    private static String xuanzhong2 = "USD";
 
     public PrinrFrame() {
 
@@ -247,31 +247,19 @@ public class PrinrFrame extends JFrame implements ActionListener {
         jPanel3.add(jLabel3);
 
         //返回打印按钮
-        jPanel4 = new JPanel();
-        jPanel4.setBackground(Color.white);
-        jPanel4.setLayout(new FlowLayout(FlowLayout.CENTER));
-        b1 = new JButton("back");
-        b1.setFocusPainted(false);
-        b2 = new JButton("trade");
-        b3 = new JButton("find histroy");
-        jPanel4.add(b1);
-        jPanel4.add(b2);
-        jPanel4.add(b3);
+
+        printFrameController = new PrintFrameController(this);
 
 
         //设置按钮可见
-        if (Privilege.equals("costomer")) {
-            b3.setVisible(false);
-        }
+
 
         this.add(jPanel1, BorderLayout.NORTH);
         this.add(jPanel2, BorderLayout.CENTER);
         this.add(jPanel3, BorderLayout.EAST);
-        this.add(jPanel4, BorderLayout.SOUTH);
+        this.add(printFrameController, BorderLayout.SOUTH);
 
-        b1.addActionListener(this);
-        b2.addActionListener(this);
-        b3.addActionListener(this);
+
         setname();
         getPersondate();
 
@@ -281,14 +269,14 @@ public class PrinrFrame extends JFrame implements ActionListener {
     }
 
     //String 转 double
-    public double stringToDouble(String doublestr) {
+    public static double stringToDouble(String doublestr) {
         Double Adouble;
         Adouble = Double.parseDouble(doublestr);
         return Adouble;
     }
 
     //double 转 String
-    public String doubleToString(double value) {
+    public static String doubleToString(double value) {
         Double aDouble = new Double(value);
         return aDouble.toString();
 
@@ -296,62 +284,31 @@ public class PrinrFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == b1) {
-            this.setVisible(false);
-            new MainFrame().setVisible(true);
-            //System.out.println("back main");
-        }
-        if (e.getSource() == b2) {
-            try {
-                panduan();
-                UpdateDate();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            } catch (ParseException parseException) {
-                parseException.printStackTrace();
-            } catch (ClassNotFoundException classNotFoundException) {
-                classNotFoundException.printStackTrace();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
 
-        }
-
-
-        if (e.getSource() == b3) {
-            dbHistory.getHistory();
-            new dbHistroyFrame();
-            this.setVisible(false);
-            Limit_get_Money.LimitMoney();
-            /*SimpleDateFormat f = new SimpleDateFormat( "yyyy-MM-dd");
-            Date date = (Date) datePicker.getModel().getValue();
-            String date1 = f.format(date);
-            System.out.println(date1);*/
-        }
     }
 
 
-    public String getJTF1() {
+    public static String getJTF1() {
         return JTF1.getText();
     }
 
-    public String getJTF2() {
+    public static String getJTF2() {
         return JTF2.getText();
     }
 
-    public String getJTF3() {
+    public static String getJTF3() {
         return JTF3.getText();
     }
 
-    public String getJTF4() {
+    public static String getJTF4() {
         return JTF4.getText();
     }
 
-    public String getXuanzhong1() {
+    public static String getXuanzhong1() {
         return xuanzhong1;
     }
 
-    public String getXuanzhong2() {
+    public static String getXuanzhong2() {
         return xuanzhong2;
     }
 
@@ -367,7 +324,7 @@ public class PrinrFrame extends JFrame implements ActionListener {
         return getdate;
     }
 
-    public void panduan() throws IOException, ParseException, ClassNotFoundException, SQLException {
+    public static void panduan() throws IOException, ParseException, ClassNotFoundException, SQLException {
         Connection conn = null;
         Statement stmt = null;
         Class.forName(JDBC_DRIVER);
@@ -463,7 +420,7 @@ public class PrinrFrame extends JFrame implements ActionListener {
         /* */
     }
 
-    public double getmoney(Statement stmt, String name, String date) {
+    public static double getmoney(Statement stmt, String name, String date) {
         double getmoney = 0;
         try {
             // 注册 JDBC 驱动
@@ -488,7 +445,7 @@ public class PrinrFrame extends JFrame implements ActionListener {
         return getmoney;
     }
 
-    public String getmoneyCurreny(Statement stmt, String name, String date) {
+    public static String getmoneyCurreny(Statement stmt, String name, String date) {
         String str = null;
         try {
             String sql;
@@ -508,7 +465,7 @@ public class PrinrFrame extends JFrame implements ActionListener {
         return str;
     }
 
-    public double getLimitnum(Statement stmt, String name) throws SQLException {
+    public static double getLimitnum(Statement stmt, String name) throws SQLException {
         double getmoney;
         String sql;
         sql = "SELECT user_limit_day FROM user_acc_pss where user_name = '" + name + "'";
@@ -581,16 +538,16 @@ public class PrinrFrame extends JFrame implements ActionListener {
     }
 
 
-    public String getcomboBox1Text() {
+    public static String getcomboBox1Text() {
         return comboBox1.getSelectedItem().toString();
     }
 
-    public String getcomboBox2Text() {
+    public static String getcomboBox2Text() {
         return comboBox2.getSelectedItem().toString();
     }
 
 
-    private void UpdateDate() {
+    public static void UpdateDate() {
         Connection conn;
         PreparedStatement preparedStatement = null;
         try {

@@ -45,8 +45,6 @@ public class Limit_get_Money {
             setArraylist(stmt);
 
 
-
-
             for(int i = 0; i < name_list.size(); i++){
                 if(i > 0 && name_list.get(i).equals(name_list.get(i-1)) && m_date.get(i).equals(m_date.get(i-1))){
                     continue;

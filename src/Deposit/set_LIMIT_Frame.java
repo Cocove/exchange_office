@@ -1,5 +1,7 @@
 package Deposit;
 
+import Exchange_MAIN.dbUserDATA;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -98,7 +100,7 @@ public class set_LIMIT_Frame extends JFrame implements ActionListener {
         if(e.getSource() == b1){
             name = getJTF1();
             money = getJTF2();
-            exchange_LIMIT(conn,name,money);
+            dbUserDATA.exchange_LIMIT(conn,name,money);
             //System.out.println(getJTF1());
         }
     }
@@ -111,25 +113,5 @@ public class set_LIMIT_Frame extends JFrame implements ActionListener {
         return JTF2.getText();
     }
 
-    public static void exchange_LIMIT(Connection connection, String name, String getUSD){
-        PreparedStatement ps=null;
-        try {
-            String sql="UPDATE user_acc_pss SET user_limit_day = ?  WHERE user_name= '"+ name +"'";
-            ps=connection.prepareStatement(sql);
-            ps.setString(1, getUSD);
-            int resultSet=ps.executeUpdate();
-            if(resultSet>0){
-                //如果插入成功，则打印success
-                //System.out.println("Sucess");
-                //System.out.println(name);
 
-            }else{
-                //如果插入失败，则打印Failure
-               // System.out.println("Failure");
-            }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
 }

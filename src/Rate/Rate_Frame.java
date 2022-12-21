@@ -26,7 +26,7 @@ public class Rate_Frame extends JFrame implements ActionListener {
 
     private final int my_width = 600;
     private final int my_height = 400;
-    private JButton b1;
+
     private JPanel jPanel1;
     private JPanel jPanel2;
     private JPanel jPanel3;
@@ -35,44 +35,74 @@ public class Rate_Frame extends JFrame implements ActionListener {
     private JLabel Window_Title_Lable;
     private ImageIcon image;
 
+    RateController rateController;
 
-    private String[] Money_Array = {"USD", "BYN", "CNY", "EUR"};
-    private JComboBox jComboBox1;
-    private JComboBox jComboBox2;
+
+    private static JComboBox jComboBox1;
+    private static JComboBox jComboBox2;
 
     private JLabel label1;
     private JLabel label2;
 
-    private JTextField JTF1;
-    private JTextField JTF2;
+    private static JTextField JTF1;
+    private static JTextField JTF2;
 
 
-    private JButton Sumbit;
-    private JButton Clear;
-    private JButton Change;
-    private JButton set_rate;
-    private JButton insert;
+
 
     private String xuanzhong1;
     private String xuanzhong2;
-    private double huilv;
-    private  double num1;
-    private double num2;
 
-    public  double stringToInt(String intstr)
-    {
-        Double Adouble;
-        Adouble = Double.parseDouble(intstr);
-        return Adouble;
-    }
-    //int 转 String
-    public String doubleToString(double value)
-    {
-        Double aDouble = new Double(value);
-        return aDouble.toString();
 
+
+
+
+    public static String getjComboBox1Item() {
+        return jComboBox1.getSelectedItem().toString();
     }
 
+    public static void setjComboBox1(String str) {
+        Rate_Frame.jComboBox1.setSelectedItem(str);
+    }
+
+    public static String getjComboBox2Item() {
+        return jComboBox2.getSelectedItem().toString();
+    }
+
+    public static void setjComboBox2(String str) {
+        Rate_Frame.jComboBox2.setSelectedItem(str);
+    }
+
+    public static String getJTF1() {
+        return JTF1.getText();
+    }
+
+    public static void setJTF1(String str) {
+        Rate_Frame.JTF1.setText(str);
+    }
+
+    public static String getJTF2() {
+        return JTF2.getText();
+    }
+
+    public static void setJTF2(String str) {
+        Rate_Frame.JTF2.setText(str);
+    }
+
+    public static int getjComboBox1Index() {
+        return jComboBox1.getSelectedIndex();
+    }
+
+    public static int getjComboBox2Index() {
+        return jComboBox2.getSelectedIndex();
+    }
+    public static void setjComboBox1Index(int Index) {
+        jComboBox1.setSelectedIndex(Index);
+    }
+
+    public static void setjComboBox2Index(int Index) {
+        jComboBox2.setSelectedIndex(Index);
+    }
 
     public Rate_Frame(){
 
@@ -102,7 +132,7 @@ public class Rate_Frame extends JFrame implements ActionListener {
 
 
         jComboBox1 = new JComboBox<String>();
-        for(String item : Money_Array){
+        for(String item : dbRate.Money_Array){
             jComboBox1.addItem(item);
         }
         jComboBox1.setPreferredSize(new Dimension(50,30));
@@ -118,7 +148,7 @@ public class Rate_Frame extends JFrame implements ActionListener {
             }
         });
         jComboBox2 = new JComboBox<String>();
-        for(String item : Money_Array){
+        for(String item : dbRate.Money_Array){
             jComboBox2.addItem(item);
         }
         jComboBox2.setPreferredSize(new Dimension(50,30));
@@ -146,62 +176,8 @@ public class Rate_Frame extends JFrame implements ActionListener {
         JTF2 = new JTextField(10);
         JTF2.setText("0");
 
-        insert =new JButton("insert");
-        insert.setFont(f1);
 
-        set_rate =new JButton("set_rate");
-        set_rate.setFont(f1);
-
-        Sumbit = new JButton("Request");
-        Sumbit.setFont(f1);
-        Sumbit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String str = JTF1.getText();
-                try {
-                    huilv = stringToInt(RateAPI.getHuilv());
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-                num1 = stringToInt(str);
-                num2 = huilv * num1;
-                String str2 = doubleToString(num2);
-                JTF2.setText(str2);
-            }
-        });
-
-        Clear = new JButton("clear");
-        Clear.setFont(f1);
-        Clear.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                jComboBox1.setSelectedIndex(0);
-                jComboBox2.setSelectedIndex(0);
-                JTF1.setText("0");
-                JTF2.setText("0");
-            }
-        });
-        Change = new JButton("change");
-        Change.setFont(f1);
-        Change.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int index1 =  jComboBox1.getSelectedIndex();
-                int index2 =  jComboBox2.getSelectedIndex();
-                jComboBox1.setSelectedIndex(index2);
-                jComboBox2.setSelectedIndex(index1);
-                String str = JTF1.getText();
-                try {
-                    huilv = stringToInt(RateAPI.getHuilv());
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-                num1 = stringToInt(str);
-                num2 = huilv * num1;
-                String str2 = doubleToString(num2);
-                JTF2.setText(str2);
-            }
-        });
+        rateController = new RateController(this);
 
         jPanel2 = new JPanel();
 
@@ -220,26 +196,10 @@ public class Rate_Frame extends JFrame implements ActionListener {
         jPanel4.add(jPanel3);
 
         jPanel1 = new JPanel();
-        b1 = new JButton("back");
-        b1.setFont(f1);
-        b1.addActionListener(this);
-        insert.addActionListener(this);
-        set_rate.addActionListener(this);
 
-        if(MainFrame.getPrivilege().equals("costomer")){
-            insert.setVisible(false);
-            set_rate.setVisible(false);
-        }
-
-        jPanel1.add(b1);
-        jPanel1.add(Sumbit);
-        jPanel1.add(Clear);
-        jPanel1.add(Change);
-        jPanel1.add(insert);
-        jPanel1.add(set_rate);
         this.add(Window_Title_Panel,BorderLayout.NORTH);
         this.add(jPanel4, BorderLayout.CENTER);
-        this.add(jPanel1, BorderLayout.SOUTH);
+        this.add(rateController, BorderLayout.SOUTH);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -247,75 +207,10 @@ public class Rate_Frame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == b1){
-            this.setVisible(false);
-            new MainFrame().setVisible(true);
-        }
-        if (e.getSource() == insert){
-            insertRate();
-        }if(e.getSource() == set_rate){
-            new set_Rate_Frame();
-        }
-    }
-
-    public void insertRate(){
-        PreparedStatement ps=null;
-        Connection conn = null;
-        Statement stmt = null;
-        try {
-            // 注册 JDBC 驱动
-            Class.forName(JDBC_DRIVER);
-            // 打开链接
-            //System.out.println("连接数据库...");
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            // 执行查询
-            //System.out.println(" 实例化Statement对象...");
-            stmt = conn.createStatement();
-
-            ArrayList<String> RATE = new ArrayList();
-
-            SimpleDateFormat sdf = new SimpleDateFormat();
-            sdf.applyPattern("yyyy-MM-dd");
-            Date date = new Date();
-            String daydate = sdf.format(date);
-
-
-            for(int i = 0;i<Money_Array.length;i++){
-                RATE.add(getUSDRATE(Money_Array[i]));
-            }
-            String sql="insert into day_rate (USD,BYN,CNY,EUR,submission_date) values(?,?,?,?,?)";
-            ps=conn.prepareStatement(sql);
-            ps.setString(1, RATE.get(0));
-            ps.setString(2, RATE.get(1));
-            ps.setString(3, RATE.get(2));
-            ps.setString(4, RATE.get(3));
-            ps.setString(5, daydate);
-            int resultSet=ps.executeUpdate();
-            if(resultSet>0){
-                //如果插入成功，则打印success
-                //System.out.println("Sucess");
-            }else{
-                //如果插入失败，则打印Failure
-                //System.out.println("Failure");
-            }
-            this.setVisible(true);
-            this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
-    public String getUSDRATE(String money) throws IOException {
-        String rate;
-        RateAPI.setHuobi1("USD");
-        RateAPI.setHuobi2(money);
-        rate = RateAPI.getHuilv();
-        return rate;
-    }
+
+
 
 }
 

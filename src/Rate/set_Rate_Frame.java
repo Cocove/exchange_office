@@ -24,12 +24,13 @@ public class set_Rate_Frame extends JFrame implements ActionListener {
     private JTextField JTF1;
     private JPanel jPanel;
     private JPanel jPanel1;
-    private JButton b1;
+
     private JComboBox comboBox1;
     Connection conn = null;
     Statement stmt = null;
     String name = null;
     String money = null;
+    setrateController setrateController;
 
     set_Rate_Frame() {
 
@@ -68,12 +69,13 @@ public class set_Rate_Frame extends JFrame implements ActionListener {
 
             jPanel.add(jPanel1);
 
+            setrateController = new setrateController(this);
 
-            b1 = new JButton("submit");
+
             this.add(jPanel, BorderLayout.CENTER);
-            this.add(b1, BorderLayout.SOUTH);
+            this.add(setrateController, BorderLayout.SOUTH);
 
-            b1.addActionListener(this);
+
             this.setVisible(true);
             this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         } catch (ClassNotFoundException e) {
@@ -85,12 +87,7 @@ public class set_Rate_Frame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == b1) {
-            name = getSelcte();
-            money = getJTF1();
-            exchange_Rate(conn, name, money);
-            //System.out.println(getJTF1());
-        }
+
     }
 
     public String getJTF1() {
@@ -103,27 +100,5 @@ public class set_Rate_Frame extends JFrame implements ActionListener {
     }
 
 
-    public static void exchange_Rate(Connection connection, String user_select, String rate) {
-        PreparedStatement ps = null;
-        try {
-            String sql = "UPDATE day_rate SET " + user_select + "  = ?  WHERE 1 ORDER BY id DESC LIMIT 1";
-            ps = connection.prepareStatement(sql);
 
-            ps.setString(1, rate);
-            int resultSet = ps.executeUpdate();
-            if (resultSet > 0) {
-                //如果插入成功，则打印success
-                //System.out.println("Sucess");
-
-
-            } else {
-                //如果插入失败，则打印Failure
-                //System.out.println("Failure");
-            }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-    }
 }

@@ -1,6 +1,6 @@
 package Exchange_MAIN;
 
-import Deposit.db_USER_deposit_Frame;
+import Deposit.dbUserDeposit;
 import Histroy.PrinrFrame;
 
 import javax.swing.*;
@@ -11,13 +11,9 @@ import java.io.IOException;
 import java.sql.*;
 
 public class LoginFrame extends JFrame implements ActionListener{
-    static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost:3306/codes?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
 
-
-    // 数据库的用户名与密码，需要根据自己的设置
-    static final String USER = "root";
-    static final String PASS = "1230zxc..";
+    private dbUserDATA userDATA = new dbUserDATA();
+    private LoginController loginController;
 
     private final int my_width = 600;
     private final int my_height = 400;
@@ -25,11 +21,14 @@ public class LoginFrame extends JFrame implements ActionListener{
     private JLabel jLabel2;
     private JLabel Window_Title_Lable;
 
-    private JTextField JTF1;
-    private JTextField JTF2;
+    private static JTextField JTF1;
+    private static JTextField JTF2;
 
     private JButton b1;
     private JButton b2;
+
+    private String str1;
+    private String str2;
 
     private JPanel jPanel;
     private JPanel jPanel1;
@@ -80,10 +79,11 @@ public class LoginFrame extends JFrame implements ActionListener{
         b2 = new JButton("register");
         jPanel3.add(b1);
         jPanel3.add(b2);
+        loginController = new LoginController(this);
 
         this.add(Window_Title_Panel,BorderLayout.NORTH);
         this.add(jPanel,BorderLayout.CENTER);
-        this.add(jPanel3,BorderLayout.SOUTH);
+        this.add(loginController,BorderLayout.SOUTH);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -91,13 +91,18 @@ public class LoginFrame extends JFrame implements ActionListener{
         b2.addActionListener(this);
     }
 
-    public String getJTF1() {
+    public static String getJTF1() {
         return JTF1.getText().toString();
     }
 
-    public String getJTF2() {
+    public static String getJTF2() {
         return JTF2.getText().toString();
     }
+
+
+
+
+
 
     public static void main(String[] args) throws IOException {
         //主窗口
@@ -106,116 +111,18 @@ public class LoginFrame extends JFrame implements ActionListener{
         MainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    String Privilege(String acc) throws ClassNotFoundException {
-        Connection conn = null;
-        Statement stmt = null;
-        String exist = null;
-        try {
-            // 注册 JDBC 驱动
-            Class.forName(JDBC_DRIVER);
-            // 打开链接
-            //System.out.println("连接数据库...");
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            // 执行查询
-            //System.out.println(" 实例化Statement对象...");
-            stmt = conn.createStatement();
-            String sql;
-            sql = "SELECT privilege FROM user_acc_pss WHERE user_acc = '"+ acc +"'";
-            ResultSet rs = stmt.executeQuery(sql);
 
-            if (rs.next()) {
-                exist = rs.getString("privilege");
-                //System.out.println(exist);
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        return exist;
-
-    }
-
-    private boolean exist_acc(String acc) throws SQLException {
-        Connection conn = null;
-        Statement stmt = null;
-        Integer exist = 0;
-        try {
-            // 注册 JDBC 驱动
-            Class.forName(JDBC_DRIVER);
-            // 打开链接
-            //System.out.println("连接数据库...");
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            // 执行查询
-            //System.out.println(" 实例化Statement对象...");
-            stmt = conn.createStatement();
-            String sql;
-            //sql = "SELECT 1 FROM user_acc_pss WHERE user_acc = '"+ "test" +"'  LIMIT 1";
-            sql = "SELECT 1 FROM user_acc_pss WHERE user_acc = '"+ acc +"'  LIMIT 1";
-            ResultSet rs = stmt.executeQuery(sql);
-
-            if (rs.next()) {
-                exist = rs.getInt(1);
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        if(exist == 0)
-        {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private boolean correct_pss(String acc, String pss){
-        Connection conn = null;
-        Statement stmt = null;
-        String exist = null;
-        try {
-            // 注册 JDBC 驱动
-            Class.forName(JDBC_DRIVER);
-            // 打开链接
-            //System.out.println("连接数据库...");
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            // 执行查询
-            //System.out.println(" 实例化Statement对象...");
-            stmt = conn.createStatement();
-            String sql;
-            sql = "SELECT user_pss FROM user_acc_pss WHERE user_acc = '"+ acc +"'";
-            ResultSet rs = stmt.executeQuery(sql);
-
-            if (rs.next()) {
-                exist = rs.getString("user_pss");
-                //System.out.println(exist);
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        if(exist.equals(pss))
-        {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == b1){
             try {
-                if(exist_acc(getJTF1())){
-                    if(correct_pss(getJTF1(), getJTF2())){
+                if(userDATA.exist_acc(getJTF1())){
+                    if(userDATA.correct_pss(getJTF1(), getJTF2())){
                         //System.out.println("登陆成功");
                         this.setVisible(false);
                         PrinrFrame.setAcc(getJTF1());
                         MainFrame.setAcc(getJTF1());
-                        MainFrame.setPrivilege(Privilege(getJTF1()));
+                        MainFrame.setPrivilege(userDATA.Privilege(getJTF1()));
 
                         Deter_user_permiss();
                     }else{
@@ -236,11 +143,11 @@ public class LoginFrame extends JFrame implements ActionListener{
     }
 
     private void Deter_user_permiss() throws ClassNotFoundException, SQLException {
-        if (!Privilege(getJTF1()).equals("costomer")) {
+        if (!userDATA.Privilege(getJTF1()).equals("costomer")) {
             new set_up_account();
         } else {
             PrinrFrame.setAcc1(this.getJTF1());
-            db_USER_deposit_Frame.setAcc(this.getJTF1());
+            dbUserDeposit.setAcc(this.getJTF1());
             new MainFrame();
         }
     }

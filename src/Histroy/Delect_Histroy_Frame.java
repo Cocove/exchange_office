@@ -1,12 +1,9 @@
 package Histroy;
 
-import Administrator.user_frame;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.*;
 
 public class Delect_Histroy_Frame extends JFrame implements ActionListener {
 
@@ -19,18 +16,18 @@ public class Delect_Histroy_Frame extends JFrame implements ActionListener {
     static final String USER = "root";
     static final String PASS = "1230zxc..";
 
-    private dbHistroyFrame userFrame;
+    public static HistroyFrame userFrame;
 
     private final int my_width = 400;
     private final int my_height = 300;
     private ImageIcon image;
-    private JTextField JTF1;
+    private static JTextField JTF1;
     private JPanel jPanel;
 
     private JPanel jPanel1;
     private JPanel jPanel2;
-    public static JButton b1;
 
+    private DelectHistroyController delectHistroyController;
 
     private JLabel jLabel;
 
@@ -58,14 +55,14 @@ public class Delect_Histroy_Frame extends JFrame implements ActionListener {
 
         jPanel.add(jPanel1);
 
-        b1 = new JButton("submit");
+        delectHistroyController = new DelectHistroyController(this);
 
-        jPanel2.add(b1);
+
 
 
         this.add(jPanel1, BorderLayout.CENTER);
-        this.add(jPanel2, BorderLayout.SOUTH);
-        b1.addActionListener(this);
+        this.add(delectHistroyController, BorderLayout.SOUTH);
+
 
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -74,73 +71,17 @@ public class Delect_Histroy_Frame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == b1) {
-            delect_user();
-            this.setVisible(false);
-            userFrame.setVisible(false);
-            new dbHistroyFrame();
-            Limit_get_Money.LimitMoney();
 
-        }
     }
 
-    public String getJTF1() {
+    public static String getJTF1() {
         return JTF1.getText();
     }
 
-    private void delect_user() {
-        Connection conn = null;
-        Statement stmt = null;
-        PreparedStatement ps = null;
-        try {
-            // 注册 JDBC 驱动
-            Class.forName(JDBC_DRIVER);
-            // 打开链接
-            //连接数据库
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            // 执行查询
-            //实例化Statement对象
-            stmt = conn.createStatement();
-            String sql;
-            sql = "DELETE FROM histroy WHERE trade_id=?";//向login表里删除数据
-            //注：几个问号几个ps.setString，上面的语句中只有一个?,所以下面只有一个ps.setString
-            ps = conn.prepareStatement(sql);//删除数据预处理
-            ps.setString(1, getJTF1());//第1个问号的值"5433"
-            ps.executeUpdate();//执行删除数据
-            sql="alter table histroy drop column trade_id";
-            ps=conn.prepareStatement(sql);
-            ps.executeUpdate();
-            sql="alter table histroy add trade_id INT(15) not null primary key auto_increment first";
-            ps=conn.prepareStatement(sql);
-            ps.executeUpdate();
-            // 完成后关闭
-            ps.close();
-            stmt.close();
-            conn.close();
-        } catch (SQLException se) {
-            // 处理 JDBC 错误
-            se.printStackTrace();
-        } catch (Exception e) {
-            // 处理 Class.forName 错误
-            e.printStackTrace();
-        } finally {
-            // 关闭资源
-            try {
-                if (stmt != null) stmt.close();
-            } catch (SQLException se2) {
-            }// 什么都不做
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
-        }
-        //System.out.println("数据删除成功");
 
-    }
 
-    public void getFarFrame(dbHistroyFrame userFrame) {
-        this.userFrame = userFrame;
+    public static void getFarFrame(HistroyFrame userFram1) {
+        userFrame = userFram1;
         //System.out.println("父窗口");
     }
 }
