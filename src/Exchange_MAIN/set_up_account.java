@@ -54,13 +54,11 @@ public class set_up_account extends JFrame implements ActionListener {
 
 
         setaccountController = new setaccountController(this);
-
         this.add(jPanel, BorderLayout.CENTER);
         this.add(setaccountController, BorderLayout.SOUTH);
 
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
     }
 
     @Override
